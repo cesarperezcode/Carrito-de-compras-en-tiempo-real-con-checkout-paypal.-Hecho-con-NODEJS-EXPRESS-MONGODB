@@ -4,15 +4,32 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var mongoose = require ("mongoose");
 var hbs = require('hbs');
 var session = require('express-session');
-
+var mongoose = require ("mongoose");
+var routes = require ("./routes/index");
 var index = require('./routes/index');
+var product = require ('./models/product');
+var products = require('./routes/products');
+
+
+mongoose.connect('mongodb://127.0.0.1:27017/shopcart', function (error){
+if (error) {
+
+throw error;
+
+}else{
+console.log('listo la conexion a la base de datos');
+}
+
+});
+
 
 var app = express();
 
 // view engine setup
+app.use(favicon(path.join(__dirname, 'favicon.png')));
 app.set('views', path.join(__dirname, 'views'));
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
@@ -36,7 +53,11 @@ app.use(function(req, res, next) {
     next();
 });
 
+
 app.use('/', index);
+app.get('/saveitem', products.create);
+app.post('/additem', products.store);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

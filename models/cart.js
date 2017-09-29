@@ -14,7 +14,7 @@ module.exports = function Cart(cart) {
         this.totalPrice += cartItem.item.price;
     };
 
-    this.remove = function(id) {
+    this.removeItem = function(id) {
         this.totalItems -= this.items[id].quantity;
         this.totalPrice -= this.items[id].price;
         delete this.items[id];
@@ -28,3 +28,5 @@ module.exports = function Cart(cart) {
         return arr;
     };
 };
+
+

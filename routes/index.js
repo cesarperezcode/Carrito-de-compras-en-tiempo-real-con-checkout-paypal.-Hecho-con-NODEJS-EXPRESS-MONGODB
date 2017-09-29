@@ -1,30 +1,40 @@
 var express = require('express');
 var router = express.Router();
-
 var fs = require('fs');
-
 var Cart = require('../models/cart');
-var products = JSON.parse(fs.readFileSync('./data/products.json', 'utf8'));
+var Product = require ('../models/product');
+var mongoose = require ("mongoose");
 
-router.get('/', function (req, res, next) {
-  res.render('index', 
-  { 
-    title: 'NodeJS Shopping Cart',
-    products: products
-  }
-  );
+
+
+router.get('/', function(req, res, next) {
+  Product.find(function(err, docs) {
+    var productChunks = [];
+    var chunkSize = 3;
+    for (var i = 0; i < docs.length; i += chunkSize) {
+      productChunks.push(docs.slice(i, i + chunkSize));
+    }
+    res.render('index', {
+      title: 'Carro De Compras',
+      products: productChunks,
+    });
+  });
 });
 
 router.get('/add/:id', function(req, res, next) {
   var productId = req.params.id;
   var cart = new Cart(req.session.cart ? req.session.cart : {});
-  var product = products.filter(function(item) {
-    return item.id == productId;
+
+  Product.findById(productId, function(err, product) {
+    if (err) {
+      return res.redirect('/');
+    }
+    cart.add(product, product.id);
+    req.session.cart = cart;
+    res.redirect('/');
   });
-  cart.add(product[0], productId);
-  req.session.cart = cart;
-  res.redirect('/');
 });
+
 
 router.get('/cart', function(req, res, next) {
   if (!req.session.cart) {
@@ -34,17 +44,18 @@ router.get('/cart', function(req, res, next) {
   }
   var cart = new Cart(req.session.cart);
   res.render('cart', {
-    title: 'NodeJS Shopping Cart',
+    title: 'Carro De Compras',
     products: cart.getItems(),
     totalPrice: cart.totalPrice
   });
 });
 
+
 router.get('/remove/:id', function(req, res, next) {
   var productId = req.params.id;
   var cart = new Cart(req.session.cart ? req.session.cart : {});
 
-  cart.remove(productId);
+  cart.removeItem(productId);
   req.session.cart = cart;
   res.redirect('/cart');
 });

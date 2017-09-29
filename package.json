@@ -1,7 +1,7 @@
 {
   "name": "nodejs-shopping-cart",
   "version": "1.0.0",
-  "author": "George Tsopouridis",
+  "author": "Cesar Perez",
   "email": "gtsopour@gmail.com",
   "private": false,
   "scripts": {
@@ -19,5 +19,16 @@
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
-  }
+  },
+  "description": "You need to have installed Node and NPM.",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gtsopour/nodejs-shopping-cart.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gtsopour/nodejs-shopping-cart/issues"
+  },
+  "homepage": "https://github.com/gtsopour/nodejs-shopping-cart#readme"
 }
