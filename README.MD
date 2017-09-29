@@ -1,8 +1,14 @@
-# NodeJS Shopping Cart IN REAL TIME - NodeJS, Express, Express-Session, Express handlebars (hbs), MONGODB
+# NodeJS Shopping Cart IN REAL TIME with Checkout Paypal - NodeJS, Express, Express-Session, Express handlebars (hbs), MONGODB.
 
 ### Run locally on your machine
 You need to have installed Node and NPM.
 
+
+Install Node for you operative system
+
+Install MongoDB
+
+Install Mongoose
 
 Install dependencies
 ``` shell
@@ -20,4 +26,6 @@ nodemon ./bin/www
 ```
 
 ### Technologies
-NodeJS, Express, Express-Session, Nodemon, hbs - Express.js view engine for handlebars.j, MONGODB
+NodeJS, Express, Express-Session, Nodemon, hbs - Express.js view engine for handlebars.j, MONGODB.
+
+Author: César Pérez. Venezuela - Barinas
